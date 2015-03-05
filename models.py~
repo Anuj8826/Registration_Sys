@@ -1,0 +1,6 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class Activation_Data(models.Model):
+    activation_data = models.CharField(max_length=500)
+    

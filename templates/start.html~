@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Domain Registration{% endblock %}
+{% block static_file %}
+<!--============j avascript===========-->
+<script src="{{ STATIC_URL }}/js/jquery.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery-ui-1.10.1.custom.min.js"></script>
+<script src="{{ STATIC_URL }}/js/bootstrap.js"></script>
+<script src="{{ STATIC_URL }}/js/accordion.nav.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery.validate.js"></script>
+<script src="{{ STATIC_URL }}/js/stepy.jquery.js"></script>
+<script src="{{ STATIC_URL }}/js/jquery.metadata.js"></script>
+<script src="{{ STATIC_URL }}/js/custom.js"></script>
+<script src="{{ STATIC_URL }}/js/respond.min.js"></script>
+<script src="{{ STATIC_URL }}/js/ios-orientationchange-fix.js"></script>
+<script type="text/javascript">
+
+                $(function () {
+                /*==JQUERY STEPY==*/
+                $('#stepy').stepy({
+                    backLabel: 'Back',
+                    nextLabel: 'Next',
+                    block: true,
+                    description: true,
+                    legend: false,
+                    titleClick: true,
+                    titleTarget: '#stepy_tabby'
+                });
+                $('#stepy1').stepy({
+                    backLabel: 'Back',
+                    nextLabel: 'Next',
+                    block: true,
+                    description: true,
+                    legend: false,
+                    titleClick: true,
+                    titleTarget: '#stepy_tabby1'
+                });
+                $('#stepy_form').stepy({
+                    backLabel: 'Back',
+                    nextLabel: 'Next',
+                    errorImage: true,
+                    block: true,
+                    description: true,
+                    legend: false,
+                    titleClick: true,
+                    titleTarget: '#top_tabby',
+                    validate: true
+                });
+                
+            });
+ $(function () {
+                var container = $('div.error-container ');
+                // validate the form when it is submitted
+                var validator = $("#stepy_form").validate({
+                    errorContainer: container,
+                    errorLabelContainer: $("ol", container),
+                    wrapper: 'li',
+                    meta: "validate"
+                });
+                $(".cancel").click(function () {
+                    validator.resetForm();
+                });
+            });
+        </script>
+{% endblock %}
+
+
+{% block layout %}
+    
+    <div class="row-fluid">
+                <div class="span12">
+                    <div class="stepy-widget">
+                        <div class="widget-head clearfix orange">
+                            <div id="top_tabby" class="pull-right">
+                            </div>
+                        </div>
+                        <div class="widget-container gray ">
+                            <div class="form-container">
+                                <form id="stepy_form" class=" form-horizontal">
+                                    <fieldset title="Step 1">
+                                        <legend>Domain Description</legend> 
+
+                                           <form class="form-horizontal left-align" id="signupForm"  method="post" action="/start/">
+                                         
+                                        <div class="control-group">
+                                        <label class="control-label">Url</label>
+                                        <div class="controls">
+                                            <input type="text" id="webUrl" placeholder="http://www.logicake.com" name="url" class="span12 {validate:{required:true,url:true}}">
+                                        </div>
+                                    </div>
+                                        
+                                    </fieldset>
+                                    <fieldset title="Step 2">
+                                        <legend>NS Record Update</legend>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <h4> Please update your NS record as follows :</h4>
+                                                <p><strong>dns1.donuthost.com</strong>
+                                                <br>
+                                                <strong>dns2.donuthost.com</strong></p>
+                                            </div>
+                                        </div>
+                                       
+                                    </fieldset>
+                                    <fieldset title="Step 3">
+                                        <legend>E-mail</legend>
+                                        <div class="control-group">
+                                        <label class="control-label">Email</label>
+                                        <div class="controls">
+                                            <input id="emailID" type="text" placeholder="Email" name="email" class="span12 {validate:{required:true,email:true}}">
+                                        </div>
+                                    </div>
+                                        
+                                    </fieldset>
+                                    <button type="submit" class="finish btn btn-extend"> Finish!</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+{% endblock %}
+
+{% block main-wrapper%}
+
+{% endblock %}
+

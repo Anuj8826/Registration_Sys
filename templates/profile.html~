@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Contact Update{% endblock %}
+{% block static_file %}
+<script type="text/javascript">
+            $(function () {
+                // validate signup form on keyup and submit
+                $("#signupForm").validate({
+                    rules: {
+                        firstname: "required",
+                        lastname: "required",
+                        username: {
+                            required: true,
+                            minlength: 2
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                        confirm_password: {
+                            required: true,
+                            minlength: 5,
+                            equalTo: "#password"
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        topic: {
+                            required: "#newsletter:checked",
+                            minlength: 2
+                        },
+                        agree: "required"
+                    },
+                    messages: {
+                        firstname: "Please enter your firstname",
+                        lastname: "Please enter your lastname",
+                        username: {
+                            required: "Please enter a username",
+                            minlength: "Your username must consist of at least 2 characters"
+                        },
+                        password: {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 5 characters long"
+                        },
+                        confirm_password: {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 5 characters long",
+                            equalTo: "Please enter the same password as above"
+                        },
+                        email: "Please enter a valid email address",
+                        agree: "Please accept our policy"
+                    }
+                });
+                // propose username by combining first- and lastname
+                $("#username").focus(function () {
+                    var firstname = $("#firstname").val();
+                    var lastname = $("#lastname").val();
+                    if (firstname && lastname && !this.value) {
+                        this.value = firstname + "." + lastname;
+                    }
+                });
+                //code to hide topic selection, disable for demo
+                var newsletter = $("#newsletter");
+                // newsletter topics are optional, hide at first
+                var inital = newsletter.is(":checked");
+                var topics = $("#newsletter_topics")[inital ? "removeClass" : "addClass"]("disable-topic");
+                var topicInputs = topics.find("input").attr("disabled", !inital);
+                // show when newsletter is checked
+                newsletter.click(function () {
+                    topics[this.checked ? "removeClass" : "addClass"]("disable-topic");
+                    topicInputs.attr("disabled", !this.checked);
+                });
+            });
+            $(function () {
+                var container = $('div.error-container ');
+                // validate the form when it is submitted
+                var validator = $("#form2").validate({
+                    errorContainer: container,
+                    errorLabelContainer: $("ol", container),
+                    wrapper: 'li',
+                    meta: "validate"
+                });
+                $(".cancel").click(function () {
+                    validator.resetForm();
+                });
+            });
+        </script>
+{% endblock %}
+
+
+{% block layout %}
+    <div class="leftbar leftbar-close clearfix">
+		<div class="admin-info clearfix">
+			<div class="admin-thumb">
+				<i class="icon-user"></i>
+			</div>
+			<div class="admin-meta">
+				<ul>
+					<li class="admin-username">{{ full_name }}</li>
+					<li><a href="#">Edit Profile</a></li>
+					<li><a href="#">View Profile </a><a href="#"><i class="icon-lock"></i> Logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="left-nav clearfix">
+			
+			
+					<div class="side-widget">
+						<div class="board-widgets light-blue">
+							<div class="board-widgets-head clearfix">
+								<h4 class="pull-left">Bandwidth Usage</h4>
+								<a href="#" class="widget-settings"><i class="icon-cloud"></i></a>
+							</div>
+							<div class="board-widgets-content">
+								<div class="progress progress-striped active min progress-info">
+									<div class="bar" style="width: 48%;">
+									</div>
+								</div>
+								<div class="stat-text progress-stat">
+									<i class="progres-percent">48%</i> 12000 MB / 25000 MB
+								</div>
+							</div>
+						</div>
+						<div class="board-widgets light-blue ">
+							<div class="board-widgets-head clearfix">
+								<h4 class="pull-left">Disk Usage</h4>
+								<a href="#" class="widget-settings"><i class="icon-hdd"></i></a>
+							</div>
+							<div class="board-widgets-content">
+								<div class="progress progress-striped active min progress-success">
+									<div class="bar" style="width: 20%;">
+									</div>
+								</div>
+								<div class="stat-text progress-stat">
+									<i class="progres-percent">20%</i> 50GB / 250 GB
+								</div>
+							</div>
+						</div>	
+					</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+
+{% block main-wrapper %}
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="content-widgets gray">
+						<div class="widget-head blue">
+							<h3> Update Contact</h3>
+						</div>
+						<div class="widget-container">
+							<div class="form-container grid-form form-background">
+								<form class="form-horizontal left-align" id="signupForm"  method="post" action="/profile/">
+
+									
+									<div class="control-group">
+										<label class="control-label">Email ID</label>
+                                                                                 
+                                                                             
+										<div class="controls">
+                                                                                       <input id="email" placeholder="{{ full_name }}" name="email" type="email" class="span12"/>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Phone No.</label>
+										<div class="controls">
+											<input id="phone_no" name="phone_no" type="text" class="span12"/>
+										</div>
+									</div>
+									
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary">Submit</button>
+										<button type="button" class="btn">Cancel</button>
+									</div>
+                                                                        
+                                                                    </form> 
+
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{%endblock%}

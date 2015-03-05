@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block static_file %}
+<script type="text/javascript">
+
+$(function(){
+        // global setting override
+        /*
+        $.extend($.gritter.options, {
+            class_name: 'gritter-light', // for light notifications (can be added directly to $.gritter.add too)
+            position: 'bottom-left', // possibilities: bottom-left, bottom-right, top-left, top-right
+            fade_in_speed: 100, // how fast notifications fade in (string or int)
+            fade_out_speed: 100, // how fast the notices fade out
+            time: 3000 // hang on the screen for...
+        });
+        */
+/**=========================
+ONLOAD NOTIFICATION 
+==============================**/
+        $(window).load(function() {
+            var unique_id = $.gritter.add({
+                // (string | mandatory) the heading of the notification
+                title: 'Welcome!',
+                // (string | mandatory) the text inside the notification
+                text: 'This is your admin dashboard. Take a look, add the domains and host up your website in minutes!',
+                // (string | optional) the image to display on the left
+                // (bool | optional) if you want it to fade out on its own or just sit there
+                sticky: false,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '5000',
+                // (string | optional) the class name you want to apply to that specific message
+                class_name: 'my-sticky-class'
+            });
+            // You can have it return a unique id, this can be used to manually remove it later using
+            /*
+            setTimeout(function(){
+                $.gritter.remove(unique_id, {
+                    fade: true,
+                    speed: 'slow'
+                });
+            }, 6000)
+            */
+            return false;
+        });
+            
+            return false;
+});
+</script>
+{% endblock %}
+{% block layout %}
+
+    <div class="leftbar leftbar-close clearfix">
+        <div class="admin-info clearfix">
+            <div class="admin-thumb">
+                <i class="icon-user"></i>
+            </div>
+            <div class="admin-meta">
+                <ul>
+                    <li class="admin-username">{{full_name}}</li>
+                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="#">View Profile </a><a href="#"><i class="icon-lock"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="left-nav clearfix">
+            <div class="side-widget">
+                <div class="board-widgets light-blue">
+                    <div class="board-widgets-head clearfix">
+                        <h4 class="pull-left">Bandwidth Usage</h4>
+                        <a href="#" class="widget-settings"><i class="icon-cloud"></i></a>
+                    </div>
+                    <div class="board-widgets-content">
+                        <div class="progress progress-striped active min progress-info">
+                            <div class="bar" style="width: 48%;">
+                            </div>
+                        </div>
+                        <div class="stat-text progress-stat">
+                                <i class="progres-percent">48%</i> 12000 MB / 25000 MB
+                        </div>
+                    </div>
+                </div>
+                <div class="board-widgets light-blue ">
+                    <div class="board-widgets-head clearfix">
+                    <h4 class="pull-left">Disk Usage</h4>
+                        <a href="#" class="widget-settings"><i class="icon-hdd"></i></a>
+                    </div>
+                    <div class="board-widgets-content">
+                        <div class="progress progress-striped active min progress-success">
+                            <div class="bar" style="width: 20%;">
+                            </div>
+                        </div>
+                        <div class="stat-text progress-stat">
+                                <i class="progres-percent">20%</i> 50GB / 250 GB
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block main-wrapper %}
+
+		<div class="container-fluid">
+			<div class="row-fluid ">
+				<div class="span12">
+					<div class="primary-head">
+						<h3 class="page-header">Dashboard</h3>
+						<ul class="top-right-toolbar">
+							<li><a data-toggle="dropdown" class="dropdown-toggle blue-violate" href="#" title="Users"><i class="icon-user"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<h4 class="breadcrumb">
+               Basic Account Configuration
+            </h4>
+            <div class="row-fluid ">
+                <div class="span4">
+                    <div class="board-widgets orange small-widget">
+                        <a href="/start"><span class="widget-icon icon-hand-right"></span><span class="widget-label">Getting Started</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets bondi-blue small-widget">
+                        <a href="/password"><span class="widget-icon icon-wrench"></span><span class="widget-label">Change Password</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets green small-widget">
+                        <a href="/profile"><span class="widget-icon icon-user"></span><span class="widget-label">Update Contact Info</span></a>
+                    </div>
+                </div>
+            
+            </div>
+            <h4 class="breadcrumb">
+               Email Configuration & Settings
+            </h4>
+             <div class="row-fluid ">
+                <div class="span4">
+                    <div class="board-widgets orange small-widget">
+                        <a href="/email"><span class="widget-icon icon-envelope-alt "></span><span class="widget-label">Email Accounts</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets bondi-blue small-widget">
+                        <a href="#"><span class="widget-icon icon-globe"></span><span class="widget-label">Webmail</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets green small-widget">
+                        <a href="/mx"><span class="widget-icon icon-file-alt"></span><span class="widget-label">MX Entry</span></a>
+                    </div>
+                </div>
+            </div>
+                <h4 class="breadcrumb">
+               Domain Management
+            </h4>
+             <div class="row-fluid ">
+                <div class="span4">
+                    <div class="board-widgets orange small-widget">
+                        <a href="/subdomain"><span class="widget-icon icon-cog"></span><span class="widget-label">Subdomains</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets bondi-blue small-widget">
+                        <a href=""><span class="widget-icon icon-magic"></span><span class="widget-label">DNS Management</span></a>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="board-widgets green small-widget">
+                        <a href="/dns"><span class="widget-icon icon-off"></span><span class="widget-label">Domain Status</span></a>
+                    </div>
+                </div>
+            </div>
+            <h4 class="breadcrumb">
+               File Management
+            </h4>
+             <div class="row-fluid ">
+                <div class="span6">
+                    <div class="board-widgets orange small-widget">
+                        <a href="#"><span class="widget-icon icon-hdd"></span><span class="widget-label">Database</span></a>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="board-widgets bondi-blue small-widget">
+                        <a href="#"><span class="widget-icon icon-exchange"></span><span class="widget-label">FTP</span></a>
+                    </div>
+                </div>
+            </div>
+            <h4 class="breadcrumb">
+               Domain Health
+            </h4>
+             <div class="row-fluid ">
+                <div class="span6">
+                    <div class="board-widgets orange small-widget">
+                        <a href="#"><span class="widget-icon icon-stethoscope"></span><span class="widget-label">Logs</span></a>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="board-widgets bondi-blue small-widget">
+                        <a href="#"><span class="widget-icon icon-exclamation-sign"></span><span class="widget-label">Alert System</span></a>
+                    </div>
+                </div>
+			
+			</div>
+		</div>
+{% endblock %}

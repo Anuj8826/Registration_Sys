@@ -1,0 +1,14 @@
+from django.db import models
+
+
+class Activating_Data(models.Model):
+    activation_token = models.CharField(max_length=500)
+    activation_password = models.CharField(max_length=50)
+    activator_username =  models.CharField(max_length=50)
+    def __unicode__(self):
+        return self.activation_data
+
+class Reset_Password(models.Model):
+    reset_email_token = models.CharField(max_length=500)
+    def __unicode__(self):
+        return self.reset_token

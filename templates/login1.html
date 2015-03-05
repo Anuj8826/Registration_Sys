@@ -1,0 +1,25 @@
+{{message}}
+{% block content %}
+   {% if form.errors %}
+     <p class='error'>Sorry that's  not a valid username or password</p>
+  {% endif %}
+  
+   <div class="container">
+
+      <h2 class="form-signin-heading">Please sign in</h2>
+       
+     <form action="/accounts/login/"  method="post">
+        <label for="id_username">Username:</label><input id="id_username" name="username" type="username" />
+        <label for="id_password">Password:</label><input id="id_password" name="password" type="password" />
+        
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary " type="submit">Sign in</button>
+      
+   </form>
+</div>
+
+<p>For a new Account, Click <a href="/signup/">here</a> to signup</p>
+{% endblock %}
+

@@ -1,0 +1,51 @@
+import json
+import hashlib, random
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.http import Http404 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, logout, login
+from django.contrib import messages
+from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+from django.contrib.auth.forms import UserCreationForm
+from forms import MyRegistrationForm
+
+def signup(request):
+        if request.method == 'GET':
+                form = UserCreationForm()
+		return	render(request, 'signup.html', {'form' : form})
+	else:
+                        user = User.objects.get(username=request.POST.get('username'))
+                        token_string = request.POST.get('username') + str(random.randint(1000,9999))
+			token = hashlib.md5()
+			token.update(token_string.encode('utf-8'))
+			link = 'http://'+request.META.get("HTTP_HOST") +'?email='+request.POST.get('username')+'&token='+token.hexdigest()
+			# send_mail('Welcome To Alertimizer',"Click on url to confirm:\n"+link, 'kanteshraj@gmail.com', [str(request.POST.get('username'))], fail_silently=False)
+                        plaintext = get_template('email/confirm_email.txt')
+                        htmltext = get_template('email/confirm_email.html')
+                        d = Context({ 'confirm_url': link })
+                        text_content = plaintext.render(d)
+                        html_content = htmltext.render(d)
+                        subject = "Confirm Email account - Alertimizer"
+                        from_email = "admin@alertimizer.com"
+                        to = request.POST.get('username')
+                        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                        msg.attach_alternative(html_content, "text/html")
+                        msg.send()
+			redis_data = {}
+			redis_data['password'] = request.POST.get('password')
+			redis_data['token'] = token.hexdigest()
+			redis.setex(request.POST.get('username'),json.dumps(redis_data),redis_key_validity)
+                        message = "<h3 style='color:white'>Verification email has been sent.</h3><h4>Verify your email id to proceed furthur.</h4><br>"
+			return render(request, 'signup.html',{'message':message,'hide':True})
+
+
+

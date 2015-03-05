@@ -1,0 +1,9 @@
+<html>
+    <head>
+   {{message}}
+    </head>
+    <body>
+        <h1>You SuccessFully Created Your Account </h1>
+        <p>Click <a href="/accounts/login/">here</a> to login</p>
+    </body>
+</html
